@@ -20,9 +20,9 @@ where $A_{ij}$ is the element of the adjacency matrix of the network.
 **Directed Networks:**
 In directed networks, we distinguish between:
 - **In-degree**: Number of edges pointing to a node
-  $$ d_{j(in)} = \sum_{i=1}^{n} A_{ij} $$
+  $d_j^{\text{(in)}} = \sum_{i=1}^{n} A_{ij}$
 - **Out-degree**: Number of edges pointing from a node
-  $$ d_{i(out)} = \sum_{j=1}^{n} A_{ij} $$
+  $d_i^{(out)} = \sum_{j=1}^{n} A_{ij}$
 
 ### 2. Closeness Centrality
 
