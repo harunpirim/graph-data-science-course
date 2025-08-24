@@ -98,7 +98,7 @@ where:
 #### 1. Graph Convolutional Networks (GCN)
 
 **Aggregation Function**:
-$$h_v^{(l+1)} = \sigma(W^{(l)} \cdot \frac{1}{\sqrt{|\mathcal{N}(v)|}} \sum_{u \in \mathcal{N}(v)} h_u^{(l)})$$
+$h_v^{(l+1)} = \sigma(W^{(l)} \cdot \frac{1}{\sqrt{|\mathcal{N}(v)|}} \sum_{u \in \mathcal{N}(v)} h_u^{(l)})$
 
 **Normalization**: Uses symmetric normalization for stability.
 
@@ -115,10 +115,10 @@ $$h_v^{(l+1)} = \sigma(W^{(l)} \cdot \frac{1}{\sqrt{|\mathcal{N}(v)|}} \sum_{u \
 #### 3. Graph Attention Networks (GAT)
 
 **Attention Mechanism**:
-$$\alpha_{ij} = \frac{exp(\text{LeakyReLU}(a^T[Wh_i \| Wh_j]))}{\sum_{k \in \mathcal{N}_i} exp(\text{LeakyReLU}(a^T[Wh_i \| Wh_k]))}$$
+$\alpha_{ij} = \frac{exp(\text{LeakyReLU}(a^T[Wh_i \| Wh_j]))}{\sum_{k \in \mathcal{N}_i} exp(\text{LeakyReLU}(a^T[Wh_i \| Wh_k]))}$
 
 **Weighted Aggregation**:
-$$h_i^{(l+1)} = \sigma(\sum_{j \in \mathcal{N}_i} \alpha_{ij} W^{(l)} h_j^{(l)})$$
+$h_i^{(l+1)} = \sigma \ \left( \sum_{j \in \mathcal{N}(i)} \alpha_{ij} \, W^{(l)} h_j^{(l)} \right)$
 
 ## Graph Pooling
 
@@ -144,7 +144,7 @@ Use self-attention for node selection.
 $$\mathcal{L} = -\sum_{v \in \mathcal{V}_L} y_v \log(\hat{y}_v)$$
 
 **Link Prediction**:
-$$\mathcal{L} = -\sum_{(u,v) \in \mathcal{E}} [y_{uv} \log(\hat{y}_{uv}) + (1-y_{uv})\log(1-\hat{y}_{uv})]$$
+$\mathcal{L} = -\sum_{(u,v) \in \mathcal{E}} \Big[ y_{uv} \log(\hat{y}_{uv}) + (1 - y_{uv}) \log(1 - \hat{y}_{uv}) \Big]$
 
 **Graph Classification**:
 $$\mathcal{L} = -\sum_{G \in \mathcal{G}} y_G \log(\hat{y}_G)$$
