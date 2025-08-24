@@ -8,40 +8,45 @@ This repository contains lecture materials, coding examples, and interactive not
 
 ## 🎯 Topics Covered
 
-### 1. **Centrality in Networks** 
-- Degree, Closeness, Betweenness, and Eigenvector Centrality
-- [📖 Lecture Notes](lectures/01-centrality.md)
-- [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/01-centrality.ipynb)
+### 1. **Introduction to Network Science** 
+- Basic concepts, network types, properties, and applications
+- [📖 Lecture Notes](lectures/01-introduction-to-network-science.md)
+- [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/01-introduction-to-network-science.ipynb)
 
 ### 2. **Network Connectivity**
-- Assortativity, Connectivity measures
+- Walks, paths, connected components, node/edge connectivity
 - [📖 Lecture Notes](lectures/02-connectivity.md)
 - [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/02-connectivity.ipynb)
 
-### 3. **Graph Machine Learning (GML)**
-- Graph Neural Networks, Node Classification
-- [📖 Lecture Notes](lectures/03-graph-machine-learning.md)
-- [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/03-graph-machine-learning.ipynb)
+### 3. **Centrality in Networks** 
+- Degree, Closeness, Betweenness, and Eigenvector Centrality
+- [📖 Lecture Notes](lectures/03-centrality-in-networks.md)
+- [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/03-centrality-in-networks.ipynb)
 
 ### 4. **Graph Visualization**
-- Network plotting with NetworkX and Gephi
+- Layout algorithms, interactive visualizations, NetworkX and Plotly
 - [📖 Lecture Notes](lectures/04-graph-visualization.md)
 - [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/04-graph-visualization.ipynb)
 
 ### 5. **Network Robustness**
-- Giant component analysis, Percolation theory
+- Random failures, targeted attacks, percolation theory
 - [📖 Lecture Notes](lectures/05-network-robustness.md)
 - [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/05-network-robustness.ipynb)
 
 ### 6. **Multilayer Networks**
-- Multilayer network analysis and applications
+- Multilayer structure, temporal networks, evolution analysis
 - [📖 Lecture Notes](lectures/06-multilayer-networks.md)
 - [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/06-multilayer-networks.ipynb)
 
 ### 7. **Signed Networks**
-- Balance theory, Signed network analysis
+- Balance theory, signed centrality, structural balance
 - [📖 Lecture Notes](lectures/07-signed-networks.md)
 - [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/07-signed-networks.ipynb)
+
+### 8. **Graph Machine Learning (GML)**
+- Graph Neural Networks, GCN, GAT, node classification
+- [📖 Lecture Notes](lectures/08-graph-machine-learning.md)
+- [💻 Interactive Notebook](https://colab.research.google.com/github/harunpirim/graph-data-science-course/blob/main/notebooks/08-graph-machine-learning.ipynb)
 
 ## 🚀 Getting Started
 
@@ -72,21 +77,23 @@ graph-data-science-course/
 ├── README.md                 # This file
 ├── requirements.txt          # Python dependencies
 ├── notebooks/               # Interactive Jupyter notebooks
-│   ├── 01-centrality.ipynb
+│   ├── 01-introduction-to-network-science.ipynb
 │   ├── 02-connectivity.ipynb
-│   ├── 03-graph-machine-learning.ipynb
+│   ├── 03-centrality-in-networks.ipynb
 │   ├── 04-graph-visualization.ipynb
 │   ├── 05-network-robustness.ipynb
 │   ├── 06-multilayer-networks.ipynb
-│   └── 07-signed-networks.ipynb
+│   ├── 07-signed-networks.ipynb
+│   └── 08-graph-machine-learning.ipynb
 ├── lectures/                # Markdown lecture notes
-│   ├── 01-centrality.md
+│   ├── 01-introduction-to-network-science.md
 │   ├── 02-connectivity.md
-│   ├── 03-graph-machine-learning.md
+│   ├── 03-centrality-in-networks.md
 │   ├── 04-graph-visualization.md
 │   ├── 05-network-robustness.md
 │   ├── 06-multilayer-networks.md
-│   └── 07-signed-networks.md
+│   ├── 07-signed-networks.md
+│   └── 08-graph-machine-learning.md
 ├── images/                  # Course images and figures
 └── data/                    # Sample datasets
 ```
