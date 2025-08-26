@@ -1,9 +1,13 @@
-# Introduction to Network Science
+# Introduction to Network Science 8.26.25
+
+HEIF Image.jpg
+
+{{TOC}}
 
 ## Overview
 
 Network Science is the study of complex systems represented as networks (graphs) where entities are nodes and relationships are edges. This field combines elements from mathematics, computer science, physics, and social sciences to understand how interconnected systems behave.
-Thanks.......
+
 
 ## Learning Objectives
 
@@ -12,7 +16,7 @@ By the end of this lecture, you will be able to:
 - Identify different types of networks and their properties
 - Analyze fundamental network metrics
 - Recognize real-world applications of network science
-- Follow a systematic approach to network analysis
+
 
 ## 1. What is Network Science?
 
@@ -58,6 +62,145 @@ Network Science is the study of complex systems as networks, where:
 - Networks that change over time
 - Dynamic relationships
 - Example: Communication networks over time
+
+
+## Simple Graph Examples
+
+### Example 1: A Basic Undirected Graph
+```
+    A ——— B
+    |     |
+    |     |
+    D ——— C
+```
+
+**Nodes:** A, B, C, D
+**Arcs:** A-B, B-C, C-D, D-A
+
+This creates a square where each vertex connects to its neighbors. Notice that in an undirected graph, we can travel from any connected node to another in either direction.
+
+### Example 2: A Directed Graph (Digraph)
+```
+    A ——→ B
+    ↑     ↓
+    |     |
+    D ←—— C
+```
+
+**Nodes:** A, B, C, D
+**Directed Arcs:** A→B, B→C, C→D, D→A
+
+Here, the arrows show direction. You can go from A to B, but not necessarily from B to A without following the complete cycle.
+
+## More Complex Graph Structures
+
+### Example 3: A Social Network
+```
+      Alice
+     /  |  \
+    /   |   \
+   Bob  |    Charlie
+    \   |   /   |
+     \  |  /    |
+      David ——— Eve
+```
+
+**Nodes:** Alice, Bob, Charlie, David, Eve
+**Relationships:**
+- Alice knows: Bob, Charlie, David
+- Bob knows: Alice, David
+- Charlie knows: Alice, David, Eve
+- David knows: Alice, Bob, Charlie, Eve
+- Eve knows: Charlie, David
+
+This represents a friendship network where Alice is highly connected (a hub), while Eve is more peripheral.
+
+### Example 4: A Transportation Network
+```
+    Airport A ←——→ Airport B
+        ↓              ↓
+        ↓              ↓
+    Airport C ←——→ Airport D
+        ↓              ↑
+        ↓              |
+    Airport E ——————→ Airport F
+```
+
+**Flight Routes:**
+- A ↔ B (bidirectional flights)
+- A → C (one-way route)
+- B → D (one-way route)
+- C ↔ D (bidirectional flights)
+- C → E (one-way route)
+- E → F (one-way route)
+- F → D (one-way route)
+
+## Graph Properties and Terminology
+
+### Degree of a Node
+The **degree** of a node is the number of arcs connected to it.
+
+In our social network example:
+- Alice has degree 3 (connected to Bob, Charlie, David)
+- David has degree 4 (connected to Alice, Bob, Charlie, Eve)
+- Eve has degree 2 (connected to Charlie, David)
+
+### Paths and Cycles
+A **path** is a sequence of nodes connected by arcs. A **cycle** is a path that starts and ends at the same node.
+
+Path example: Alice → David → Eve
+Cycle example: A → B → C → D → A
+
+### Connected vs. Disconnected Graphs
+```
+Connected Graph:       Disconnected Graph:
+    A ——— B               A ——— B    E ——— F
+    |     |               |     |       
+    |     |               |     |       
+    D ——— C               D ——— C    
+```
+
+## Special Types of Graphs
+
+### Tree Structure
+A tree is a connected graph with no cycles - like a family tree or file system.
+
+```
+        Root
+       /  |  \
+      /   |   \
+     A    B    C
+    / \       / \
+   D   E     F   G
+```
+
+### Complete Graph
+A complete graph connects every node to every other node.
+
+```
+Complete Graph with 4 nodes:
+    A ——— B
+    |\   /|
+    | \ / |
+    |  X  |
+    | / \ |
+    |/   \|
+    D ——— C
+```
+
+### Weighted Graphs
+Sometimes arcs have values (weights) representing cost, distance, or strength of connection.
+
+```
+    A ——5—— B
+    |       |
+    3       7
+    |       |
+    D ——2—— C
+```
+
+The numbers represent distances, costs, or other measurable relationships.
+
 
 ## 3. Basic Network Properties
 
@@ -203,7 +346,6 @@ Network Science is the study of complex systems as networks, where:
 - **NetworkX**: Comprehensive network analysis
 - **igraph**: Fast network algorithms
 - **PyTorch Geometric**: Graph neural networks
-- **Plotly**: Interactive visualizations
 
 ### Specialized Software
 - **Gephi**: Interactive network visualization
@@ -211,11 +353,6 @@ Network Science is the study of complex systems as networks, where:
 - **Pajek**: Large network analysis
 - **UCINET**: Social network analysis
 
-### Visualization Tools
-- **D3.js**: Web-based visualizations
-- **Gephi**: Desktop visualization
-- **Matplotlib/Seaborn**: Python plotting
-- **Plotly**: Interactive plots
 
 ## 10. Challenges and Future Directions
 
@@ -257,188 +394,6 @@ The field continues to grow with new applications in machine learning, medicine,
 - Applications span social, biological, and technological domains
 - Tools and methods continue to evolve rapidly
 
-## Next Steps
-
-- Learn about network connectivity and paths
-- Explore centrality measures in detail
-- Study community detection methods
-- Understand network dynamics and evolution
-- Practice with real-world datasets
-- Explore advanced topics like graph machine learning
-
-
-# Graph Theory: Understanding Nodes and Arcs
-
-## Introduction to Graph Theory
-
-Graph theory is a branch of mathematics that studies the relationships between objects. Think of it as a way to map connections - like how cities connect through roads, how people know each other in social networks, or how web pages link to one another.
-
-A **graph** consists of two fundamental components:
-- **Nodes** (also called vertices): The objects or entities we're studying
-- **Arcs** (also called edges): The connections or relationships between nodes
-
-## Basic Graph Components
-
-### Nodes (Vertices)
-Nodes represent the entities in your system. In different contexts, they might represent:
-- Cities in a transportation network
-- People in a social network
-- Web pages on the internet
-- Computers in a network
-
-We typically represent nodes as circles or dots and label them with letters or names.
-
-### Arcs (Edges)
-Arcs represent the relationships or connections between nodes. They can be:
-- **Undirected**: The connection works both ways (like friendship)
-- **Directed**: The connection has a specific direction (like following someone on social media)
-
-## Simple Graph Examples
-
-### Example 1: A Basic Undirected Graph
-```
-    A ——— B
-    |     |
-    |     |
-    D ——— C
-```
-
-**Nodes:** A, B, C, D
-**Arcs:** A-B, B-C, C-D, D-A
-
-This creates a square where each vertex connects to its neighbors. Notice that in an undirected graph, we can travel from any connected node to another in either direction.
-
-### Example 2: A Directed Graph (Digraph)
-```
-    A ——→ B
-    ↑     ↓
-    |     |
-    D ←—— C
-```
-
-**Nodes:** A, B, C, D
-**Directed Arcs:** A→B, B→C, C→D, D→A
-
-Here, the arrows show direction. You can go from A to B, but not necessarily from B to A without following the complete cycle.
-
-## More Complex Graph Structures
-
-### Example 3: A Social Network
-```
-      Alice
-     /  |  \
-    /   |   \
-   Bob  |    Charlie
-    \   |   /   |
-     \  |  /    |
-      David ——— Eve
-```
-
-**Nodes:** Alice, Bob, Charlie, David, Eve
-**Relationships:**
-- Alice knows: Bob, Charlie, David
-- Bob knows: Alice, David
-- Charlie knows: Alice, David, Eve
-- David knows: Alice, Bob, Charlie, Eve
-- Eve knows: Charlie, David
-
-This represents a friendship network where Alice is highly connected (a hub), while Eve is more peripheral.
-
-### Example 4: A Transportation Network
-```
-    Airport A ←——→ Airport B
-        ↓              ↓
-        ↓              ↓
-    Airport C ←——→ Airport D
-        ↓              ↑
-        ↓              |
-    Airport E ——————→ Airport F
-```
-
-**Flight Routes:**
-- A ↔ B (bidirectional flights)
-- A → C (one-way route)
-- B → D (one-way route)
-- C ↔ D (bidirectional flights)
-- C → E (one-way route)
-- E → F (one-way route)
-- F → D (one-way route)
-
-## Graph Properties and Terminology
-
-### Degree of a Node
-The **degree** of a node is the number of arcs connected to it.
-
-In our social network example:
-- Alice has degree 3 (connected to Bob, Charlie, David)
-- David has degree 4 (connected to Alice, Bob, Charlie, Eve)
-- Eve has degree 2 (connected to Charlie, David)
-
-### Paths and Cycles
-A **path** is a sequence of nodes connected by arcs. A **cycle** is a path that starts and ends at the same node.
-
-Path example: Alice → David → Eve
-Cycle example: A → B → C → D → A
-
-### Connected vs. Disconnected Graphs
-```
-Connected Graph:       Disconnected Graph:
-    A ——— B               A ——— B    E ——— F
-    |     |               |     |       
-    |     |               |     |       
-    D ——— C               D ——— C    
-```
-
-## Special Types of Graphs
-
-### Tree Structure
-A tree is a connected graph with no cycles - like a family tree or file system.
-
-```
-        Root
-       /  |  \
-      /   |   \
-     A    B    C
-    / \       / \
-   D   E     F   G
-```
-
-### Complete Graph
-A complete graph connects every node to every other node.
-
-```
-Complete Graph with 4 nodes:
-    A ——— B
-    |\   /|
-    | \ / |
-    |  X  |
-    | / \ |
-    |/   \|
-    D ——— C
-```
-
-### Weighted Graphs
-Sometimes arcs have values (weights) representing cost, distance, or strength of connection.
-
-```
-    A ——5—— B
-    |       |
-    3       7
-    |       |
-    D ——2—— C
-```
-
-The numbers represent distances, costs, or other measurable relationships.
-
-## Real-World Applications
-
-Understanding nodes and arcs helps us model and solve problems in many fields:
-
-**Computer Science:** Network routing, data structures, algorithms
-**Social Sciences:** Analyzing relationships, influence patterns, community detection
-**Transportation:** Route optimization, traffic flow analysis
-**Biology:** Modeling neural networks, food webs, protein interactions
-**Business:** Supply chains, organizational structures, customer relationships
 
 ## Key Insights for Learning
 
@@ -454,4 +409,14 @@ Graph theory provides a powerful language for describing and analyzing these rel
 
 Try modeling your own social network or the websites you visit regularly as a graph. Identify the nodes and arcs, and consider what insights you might gain from analyzing the structure. What patterns do you notice? Who or what serves as important connection points?
 
-HEIF Image.jpg
+## Next Steps
+
+- Learn about network connectivity and paths
+- Explore centrality measures in detail
+- Study community detection methods
+- Understand network dynamics and evolution
+- Practice with real-world datasets
+- Explore advanced topics like graph machine learning
+
+
+
