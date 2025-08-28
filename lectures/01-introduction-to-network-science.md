@@ -269,6 +269,12 @@ The numbers represent distances, costs, or other measurable relationships.
 - **Wikipedia**: Articles and internal links
 - **Software dependencies**: Package relationships
 
+g1.jpg
+
+g2.jpg
+
+g3.jpg
+
 ## 6. Network Analysis Workflow
 
 ### Step 1: Data Collection
