@@ -1,4 +1,8 @@
 # Network Connectivity
+ 
+>> it is time to get back to basics
+
+>> John Major  
 
 ## Introduction
 
@@ -19,9 +23,36 @@ where $v_i$ is a node and $e_i$ is an edge.
 
 **Key Differences:**
 - A walk can visit the same node multiple times
-- A path visits each node at most once
+- A path visits each node at most once (except start and end are the same)
 - All paths are walks, but not all walks are paths
 
+==Path $\sub$ Trail $\sub$ Walk==
+
+```python 
+import networkx as nx
+import numpy as np
+import matplotlib.pyplot as plt
+
+def generate_path(G, length):
+	nodes = list(G.nodes()) 
+	current_node = nodes[0] 
+	path = [current_node] 
+	for _ in range(1, length):
+		next_node = np.random.choice(nodes) 
+			while next_node in path:
+				next_node = np.random.choice(nodes)
+			path.append(next_node)
+	return path
+
+G = nx.Graph() 
+G.add_nodes_from(range(10)) 
+for i in range(10):
+	for j in range(i + 1, 10):
+		G.add_edge(i, j)
+
+path = generate_path(G, 5) 
+print(path)
+```
 ### Connected Components
 
 A **connected component** is a maximal subgraph where every pair of nodes is connected by a path.
@@ -30,6 +61,34 @@ A **connected component** is a maximal subgraph where every pair of nodes is con
 1. **Strongly Connected**: In directed graphs, every node can reach every other node
 2. **Weakly Connected**: In directed graphs, the underlying undirected graph is connected
 3. **Connected**: In undirected graphs, there exists a path between any two nodes
+
+==Graph laplacian of a connected graph has only one zero eigenvalue==
+
+```
+# Create a graph (replace this with your actual graph creation) 
+
+G = nx.complete_bipartite_graph(3, 5)
+
+# Calculate the Laplacian matrix
+
+laplacian_matrix = nx.laplacian_matrix(G).toarray()
+
+# Find the eigenvalues of the Laplacian matrix 
+
+eigenvalues = np.linalg.eigvals(laplacian_matrix) print(eigenvalues)
+
+# Check if there is exactly one eigenvalue equal to zero 
+
+num_zero_eigenvalues = np.count_nonzero(np.isclose(eigenvalues, 0))
+	if num_zero_eigenvalues == 1:
+		print("The graph is connected.")
+	else:
+		print("The graph is not connected.")
+		
+[0. 5. 8. 5. 3. 3. 3. 3.] 
+The graph is connected.
+
+```
 
 ## Connectivity Measures
 
@@ -61,6 +120,11 @@ where $F$ is an edge cut set that disconnects the graph.
 - $\lambda(G) = 1$ if $G$ has a bridge
 - $\lambda(G) \leq \delta(G)$ where $\delta(G)$ is the minimum degree
 
+```
+nx.minimum_node_cut()
+nx.minimum_edge_cut()
+```
+
 ### 3. Menger's Theorem
 
 **Node Version**: The maximum number of node-disjoint paths between two nodes equals the minimum number of nodes whose removal disconnects them.
@@ -85,11 +149,18 @@ where $F$ is an edge cut set that disconnects the graph.
 
 **Critical Threshold**: The point at which the giant component emerges or disappears.
 
-**Mathematical Framework:**
-- $p_c$: Critical probability
-- $S(p)$: Size of giant component as function of $p$
-- $S(p) = 0$ for $p < p_c$
-- $S(p) > 0$ for $p > p_c$
+
+lattice.png
+Width: 70%
+
+node_per.png
+Width: 70%
+
+edge_per.png
+Width: 70%
+
+percol.png
+Width: 70%
 
 ## Assortativity
 
@@ -127,6 +198,10 @@ where:
 ### Finding Connected Components
 
 **Depth-First Search (DFS) Algorithm:**
+
+Depth first search (DFS) is an algorithm for traversing or searching tree or graph data structures. The algorithm starts at the root node (selecting some arbitrary node as the root node in the case of a graph) and explores as far as possible along each branch before backtracking.
+
+
 ```python
 def find_components_dfs(graph):
     visited = set()
@@ -142,6 +217,10 @@ def find_components_dfs(graph):
 ```
 
 **Breadth-First Search (BFS) Algorithm:**
+
+Breadth first search (BFS) is an algorithm for traversing or searching tree or graph data structures. It starts at the tree root (or some arbitrary node of a graph, sometimes referred to as a ‘search key’[1]) and explores the neighbor nodes first, before moving to the next level neighbors.
+
+
 ```python
 def find_components_bfs(graph):
     visited = set()
@@ -155,12 +234,6 @@ def find_components_bfs(graph):
     
     return components
 ```
-
-### Computing Node and Edge Connectivity
-
-**Ford-Fulkerson Algorithm**: For computing maximum flow and minimum cut.
-
-**Stoer-Wagner Algorithm**: For computing global minimum cut.
 
 ## Applications
 
@@ -189,10 +262,12 @@ def find_components_bfs(graph):
 | Problem | Time Complexity | Notes |
 |---------|----------------|-------|
 | Connected components | O(V + E) | Linear time |
-| Node connectivity | O(V³) | Polynomial time |
-| Edge connectivity | O(V³) | Polynomial time |
+| Node connectivity | O(V³ * E) | Polynomial time |
+| Edge connectivity | O(V³ * E) | Polynomial time |
 | Giant component | O(V + E) | Linear time |
 | Assortativity | O(E) | Linear time |
+
+
 
 ## References
 
