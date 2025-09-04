@@ -181,6 +181,9 @@ where:
 - $r < 0$: Disassortative (high-degree nodes connect to low-degree nodes)
 - $r = 0$: No degree correlation
 
+assortativity.png
+Title: assortativity of different networks, courtesy of https://cambridgeuniversitypress.github.io/FirstCourseNetworkScience/
+
 ### Types of Assortativity
 
 1. **Assortative Networks**:
@@ -267,10 +270,10 @@ def find_components_bfs(graph):
 | Giant component | O(V + E) | Linear time |
 | Assortativity | O(E) | Linear time |
 
-
+--- 
 
 ## References
 
-- Newman, M. E. J. (2010). Networks: An Introduction. Oxford University Press.
+- https://cambridgeuniversitypress.github.io/FirstCourseNetworkScience/
 - Bollobás, B. (2001). Random Graphs. Cambridge University Press.
 - Albert, R., & Barabási, A. L. (2002). Statistical mechanics of complex networks. Reviews of Modern Physics, 74(1), 47. 

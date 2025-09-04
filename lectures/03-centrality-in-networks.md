@@ -13,7 +13,7 @@ Degree centrality is the simplest centrality measure, calculated as the number o
 **Mathematical Definition:**
 For node $j$, the degree $d_j$ is calculated as:
 
-$$ d_j = \sum_{i=1}^{n} A_{ij} $$
+$d_j = \sum_{i=1}^{n} A_{ij}$
 
 where $A_{ij}$ is the element of the adjacency matrix of the network.
 
@@ -31,7 +31,7 @@ Closeness centrality measures how close a node is to all other nodes in the netw
 **Mathematical Definition:**
 For node $j$, closeness centrality $c_j$ is calculated as:
 
-$$ c_j = \frac{1}{\sum_{i=1}^{n} d_{ij}} $$
+$c_j = \frac{1}{\sum_{i=1}^{n} d_{ij}}$
 
 where $d_{ij}$ is the shortest path distance between node $i$ and node $j$.
 
@@ -47,7 +47,7 @@ Betweenness centrality measures how often a node lies on the shortest paths betw
 **Mathematical Definition:**
 For node $j$, betweenness centrality $b_j$ is calculated as:
 
-$$ b_j = \sum_{s\neq t\neq j} \frac{\sigma_{st}(j)}{\sigma_{st}} $$
+$b_j = \sum_{s\neq t\neq j} \frac{\sigma_{st}(j)}{\sigma_{st}}$
 
 where:
 - $\sigma_{st}$ is the number of shortest paths between node $s$ and node $t$
@@ -65,10 +65,10 @@ Eigenvector centrality considers not just the number of connections, but also th
 **Mathematical Definition:**
 For node $j$, eigenvector centrality $x_j$ is calculated as:
 
-$$ x_j = \frac{1}{\lambda} \sum_{j=1}^{n} A_{ij} x_j $$
+$x_j = \frac{1}{\lambda} \sum_{j=1}^{n} A_{ij} x_j$
 
 This can be written in matrix form as:
-$$ Av = \lambda{v} $$
+$Av = \lambda{v}$
 
 where:
 - $A_{ij}$ is the adjacency matrix element
@@ -87,7 +87,7 @@ PageRank is a variant of eigenvector centrality that includes a damping factor t
 **Mathematical Definition:**
 For node $i$, PageRank centrality $x_i$ is calculated as:
 
-$$ x_i = \frac{1-d}{N} + d \sum_{j=1}^{n} \frac{A_{ij}}{d_{j}^{out}} x_j $$
+$x_i = \frac{1-d}{N} + d \sum_{j=1}^{n} \frac{A_{ij}}{d_{j}^{out}} x_j$
 
 where:
 - $d$ is the damping factor (typically 0.85)
@@ -129,4 +129,4 @@ where:
 
 - [Eigenvector Centrality Video](https://www.youtube.com/watch?v=Fr-KK8Ks5vg)
 - [PageRank Video](https://www.youtube.com/watch?v=-u02pxg4w8U)
-- Newman, M. E. J. (2010). Networks: An Introduction. Oxford University Press. 
+- https://cambridgeuniversitypress.github.io/FirstCourseNetworkScience/
