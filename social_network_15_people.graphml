@@ -1,0 +1,351 @@
+<?xml version='1.0' encoding='utf-8'?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://graphml.graphdrawing.org/xmlns/1.0/graphml.xsd"><key id="d14" for="edge" attr.name="communication_type" attr.type="string"/>
+<key id="d13" for="edge" attr.name="interaction_frequency" attr.type="string"/>
+<key id="d12" for="edge" attr.name="duration_years" attr.type="double"/>
+<key id="d11" for="edge" attr.name="strength" attr.type="double"/>
+<key id="d10" for="edge" attr.name="relationship_type" attr.type="string"/>
+<key id="d9" for="node" attr.name="personality_type" attr.type="string"/>
+<key id="d8" for="node" attr.name="social_media_usage" attr.type="string"/>
+<key id="d7" for="node" attr.name="hobbies" attr.type="string"/>
+<key id="d6" for="node" attr.name="marital_status" attr.type="string"/>
+<key id="d5" for="node" attr.name="profession" attr.type="string"/>
+<key id="d4" for="node" attr.name="city" attr.type="string"/>
+<key id="d3" for="node" attr.name="income_level" attr.type="string"/>
+<key id="d2" for="node" attr.name="education" attr.type="string"/>
+<key id="d1" for="node" attr.name="gender" attr.type="string"/>
+<key id="d0" for="node" attr.name="age" attr.type="long"/>
+<graph edgedefault="undirected"><node id="Person_01">
+  <data key="d0">58</data>
+  <data key="d1">Male</data>
+  <data key="d2">High School</data>
+  <data key="d3">High</data>
+  <data key="d4">Phoenix</data>
+  <data key="d5">Teacher</data>
+  <data key="d6">Married</data>
+  <data key="d7">Travel</data>
+  <data key="d8">Low</data>
+  <data key="d9">Ambivert</data>
+</node>
+<node id="Person_02">
+  <data key="d0">25</data>
+  <data key="d1">Male</data>
+  <data key="d2">PhD</data>
+  <data key="d3">Medium</data>
+  <data key="d4">Houston</data>
+  <data key="d5">Teacher</data>
+  <data key="d6">Single</data>
+  <data key="d7">Travel</data>
+  <data key="d8">High</data>
+  <data key="d9">Ambivert</data>
+</node>
+<node id="Person_03">
+  <data key="d0">19</data>
+  <data key="d1">Male</data>
+  <data key="d2">Bachelor</data>
+  <data key="d3">Medium</data>
+  <data key="d4">Houston</data>
+  <data key="d5">Teacher</data>
+  <data key="d6">Single</data>
+  <data key="d7">Sports</data>
+  <data key="d8">High</data>
+  <data key="d9">Extrovert</data>
+</node>
+<node id="Person_04">
+  <data key="d0">65</data>
+  <data key="d1">Female</data>
+  <data key="d2">High School</data>
+  <data key="d3">Low</data>
+  <data key="d4">New York</data>
+  <data key="d5">Student</data>
+  <data key="d6">Divorced</data>
+  <data key="d7">Gaming</data>
+  <data key="d8">Medium</data>
+  <data key="d9">Introvert</data>
+</node>
+<node id="Person_05">
+  <data key="d0">35</data>
+  <data key="d1">Male</data>
+  <data key="d2">High School</data>
+  <data key="d3">Low</data>
+  <data key="d4">Houston</data>
+  <data key="d5">Student</data>
+  <data key="d6">Married</data>
+  <data key="d7">Gaming</data>
+  <data key="d8">Medium</data>
+  <data key="d9">Ambivert</data>
+</node>
+<node id="Person_06">
+  <data key="d0">33</data>
+  <data key="d1">Male</data>
+  <data key="d2">Master</data>
+  <data key="d3">Low</data>
+  <data key="d4">New York</data>
+  <data key="d5">Teacher</data>
+  <data key="d6">Single</data>
+  <data key="d7">Reading</data>
+  <data key="d8">Medium</data>
+  <data key="d9">Ambivert</data>
+</node>
+<node id="Person_07">
+  <data key="d0">32</data>
+  <data key="d1">Female</data>
+  <data key="d2">Master</data>
+  <data key="d3">Low</data>
+  <data key="d4">Los Angeles</data>
+  <data key="d5">Artist</data>
+  <data key="d6">Single</data>
+  <data key="d7">Music</data>
+  <data key="d8">Low</data>
+  <data key="d9">Introvert</data>
+</node>
+<node id="Person_08">
+  <data key="d0">26</data>
+  <data key="d1">Female</data>
+  <data key="d2">Master</data>
+  <data key="d3">Low</data>
+  <data key="d4">Phoenix</data>
+  <data key="d5">Doctor</data>
+  <data key="d6">Single</data>
+  <data key="d7">Gaming</data>
+  <data key="d8">High</data>
+  <data key="d9">Extrovert</data>
+</node>
+<node id="Person_09">
+  <data key="d0">65</data>
+  <data key="d1">Male</data>
+  <data key="d2">Master</data>
+  <data key="d3">Low</data>
+  <data key="d4">Houston</data>
+  <data key="d5">Student</data>
+  <data key="d6">Married</data>
+  <data key="d7">Sports</data>
+  <data key="d8">Medium</data>
+  <data key="d9">Introvert</data>
+</node>
+<node id="Person_10">
+  <data key="d0">24</data>
+  <data key="d1">Female</data>
+  <data key="d2">Bachelor</data>
+  <data key="d3">Low</data>
+  <data key="d4">Chicago</data>
+  <data key="d5">Doctor</data>
+  <data key="d6">Married</data>
+  <data key="d7">Reading</data>
+  <data key="d8">High</data>
+  <data key="d9">Ambivert</data>
+</node>
+<node id="Person_11">
+  <data key="d0">61</data>
+  <data key="d1">Female</data>
+  <data key="d2">PhD</data>
+  <data key="d3">Medium</data>
+  <data key="d4">Houston</data>
+  <data key="d5">Teacher</data>
+  <data key="d6">Married</data>
+  <data key="d7">Reading</data>
+  <data key="d8">Medium</data>
+  <data key="d9">Ambivert</data>
+</node>
+<node id="Person_12">
+  <data key="d0">65</data>
+  <data key="d1">Male</data>
+  <data key="d2">Bachelor</data>
+  <data key="d3">Medium</data>
+  <data key="d4">Phoenix</data>
+  <data key="d5">Teacher</data>
+  <data key="d6">Single</data>
+  <data key="d7">Travel</data>
+  <data key="d8">Low</data>
+  <data key="d9">Introvert</data>
+</node>
+<node id="Person_13">
+  <data key="d0">52</data>
+  <data key="d1">Female</data>
+  <data key="d2">Bachelor</data>
+  <data key="d3">Medium</data>
+  <data key="d4">Houston</data>
+  <data key="d5">Artist</data>
+  <data key="d6">Single</data>
+  <data key="d7">Travel</data>
+  <data key="d8">Medium</data>
+  <data key="d9">Extrovert</data>
+</node>
+<node id="Person_14">
+  <data key="d0">23</data>
+  <data key="d1">Female</data>
+  <data key="d2">Master</data>
+  <data key="d3">Low</data>
+  <data key="d4">Los Angeles</data>
+  <data key="d5">Teacher</data>
+  <data key="d6">Divorced</data>
+  <data key="d7">Music</data>
+  <data key="d8">Low</data>
+  <data key="d9">Extrovert</data>
+</node>
+<node id="Person_15">
+  <data key="d0">55</data>
+  <data key="d1">Male</data>
+  <data key="d2">Master</data>
+  <data key="d3">Low</data>
+  <data key="d4">New York</data>
+  <data key="d5">Artist</data>
+  <data key="d6">Married</data>
+  <data key="d7">Reading</data>
+  <data key="d8">High</data>
+  <data key="d9">Introvert</data>
+</node>
+<edge source="Person_01" target="Person_02">
+  <data key="d10">Friend</data>
+  <data key="d11">0.27</data>
+  <data key="d12">10.0</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">In-person</data>
+</edge>
+<edge source="Person_01" target="Person_03">
+  <data key="d10">Family</data>
+  <data key="d11">0.19</data>
+  <data key="d12">8.4</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">Mixed</data>
+</edge>
+<edge source="Person_01" target="Person_04">
+  <data key="d10">Family</data>
+  <data key="d11">0.46</data>
+  <data key="d12">1.1</data>
+  <data key="d13">Daily</data>
+  <data key="d14">Online</data>
+</edge>
+<edge source="Person_02" target="Person_03">
+  <data key="d10">Friend</data>
+  <data key="d11">0.49</data>
+  <data key="d12">9.7</data>
+  <data key="d13">Monthly</data>
+  <data key="d14">In-person</data>
+</edge>
+<edge source="Person_02" target="Person_05">
+  <data key="d10">Friend</data>
+  <data key="d11">0.41</data>
+  <data key="d12">4.1</data>
+  <data key="d13">Daily</data>
+  <data key="d14">Mixed</data>
+</edge>
+<edge source="Person_03" target="Person_06">
+  <data key="d10">Acquaintance</data>
+  <data key="d11">0.88</data>
+  <data key="d12">9.9</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">Mixed</data>
+</edge>
+<edge source="Person_04" target="Person_05">
+  <data key="d10">Friend</data>
+  <data key="d11">0.48</data>
+  <data key="d12">9.3</data>
+  <data key="d13">Daily</data>
+  <data key="d14">In-person</data>
+</edge>
+<edge source="Person_04" target="Person_06">
+  <data key="d10">Friend</data>
+  <data key="d11">0.52</data>
+  <data key="d12">8.6</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">Online</data>
+</edge>
+<edge source="Person_04" target="Person_07">
+  <data key="d10">Friend</data>
+  <data key="d11">0.35</data>
+  <data key="d12">9.6</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">Mixed</data>
+</edge>
+<edge source="Person_04" target="Person_12">
+  <data key="d10">Family</data>
+  <data key="d11">0.5</data>
+  <data key="d12">7.3</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">In-person</data>
+</edge>
+<edge source="Person_05" target="Person_06">
+  <data key="d10">Family</data>
+  <data key="d11">0.76</data>
+  <data key="d12">2.1</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">In-person</data>
+</edge>
+<edge source="Person_05" target="Person_08">
+  <data key="d10">Friend</data>
+  <data key="d11">0.27</data>
+  <data key="d12">7.9</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">In-person</data>
+</edge>
+<edge source="Person_05" target="Person_12">
+  <data key="d10">Friend</data>
+  <data key="d11">0.88</data>
+  <data key="d12">2.0</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">Mixed</data>
+</edge>
+<edge source="Person_06" target="Person_09">
+  <data key="d10">Friend</data>
+  <data key="d11">0.5</data>
+  <data key="d12">4.8</data>
+  <data key="d13">Daily</data>
+  <data key="d14">In-person</data>
+</edge>
+<edge source="Person_06" target="Person_11">
+  <data key="d10">Colleague</data>
+  <data key="d11">0.15</data>
+  <data key="d12">9.7</data>
+  <data key="d13">Rarely</data>
+  <data key="d14">Online</data>
+</edge>
+<edge source="Person_07" target="Person_08">
+  <data key="d10">Friend</data>
+  <data key="d11">0.71</data>
+  <data key="d12">5.1</data>
+  <data key="d13">Monthly</data>
+  <data key="d14">In-person</data>
+</edge>
+<edge source="Person_07" target="Person_09">
+  <data key="d10">Friend</data>
+  <data key="d11">0.99</data>
+  <data key="d12">2.5</data>
+  <data key="d13">Daily</data>
+  <data key="d14">Mixed</data>
+</edge>
+<edge source="Person_07" target="Person_11">
+  <data key="d10">Colleague</data>
+  <data key="d11">0.6</data>
+  <data key="d12">3.3</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">Mixed</data>
+</edge>
+<edge source="Person_08" target="Person_09">
+  <data key="d10">Friend</data>
+  <data key="d11">0.19</data>
+  <data key="d12">4.3</data>
+  <data key="d13">Rarely</data>
+  <data key="d14">In-person</data>
+</edge>
+<edge source="Person_09" target="Person_15">
+  <data key="d10">Friend</data>
+  <data key="d11">0.32</data>
+  <data key="d12">10.0</data>
+  <data key="d13">Weekly</data>
+  <data key="d14">Mixed</data>
+</edge>
+<edge source="Person_10" target="Person_14">
+  <data key="d10">Family</data>
+  <data key="d11">0.48</data>
+  <data key="d12">4.5</data>
+  <data key="d13">Monthly</data>
+  <data key="d14">Mixed</data>
+</edge>
+<edge source="Person_12" target="Person_13">
+  <data key="d10">Acquaintance</data>
+  <data key="d11">0.93</data>
+  <data key="d12">5.8</data>
+  <data key="d13">Monthly</data>
+  <data key="d14">In-person</data>
+</edge>
+</graph></graphml>
