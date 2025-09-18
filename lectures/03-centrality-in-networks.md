@@ -109,6 +109,8 @@ where:
 | Eigenvector | Connection to important nodes | Influential nodes |
 | PageRank | Importance with damping | Web-like structures |
 
+centrality.png 
+ 
 ## Applications
 
 1. **Social Networks**: Identifying influential users
