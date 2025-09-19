@@ -1,5 +1,4 @@
 # Graph Visualization
-
 ## Introduction
 
 Graph visualization is a crucial aspect of network analysis that helps researchers and practitioners understand complex network structures, identify patterns, and communicate findings effectively. This lecture covers various techniques and tools for visualizing graphs.
@@ -8,20 +7,7 @@ Graph visualization is a crucial aspect of network analysis that helps researche
 
 ### 1. Layout Algorithms
 
-**Force-Directed Layouts**:
-- **Spring Layout**: Nodes repel each other, edges act as springs
-- **Fruchterman-Reingold**: Optimizes edge length uniformity
-- **Kamada-Kawai**: Minimizes energy based on graph distances
-
-**Hierarchical Layouts**:
-- **Tree Layout**: Organizes nodes in a tree structure
-- **Dendrogram**: Shows hierarchical clustering
-- **Sugiyama**: Minimizes edge crossings in directed graphs
-
-**Geometric Layouts**:
-- **Circular Layout**: Places nodes on a circle
-- **Grid Layout**: Arranges nodes in a grid pattern
-- **Spiral Layout**: Organizes nodes in a spiral pattern
+layout.png
 
 ### 2. Visual Encoding
 
@@ -117,6 +103,22 @@ Gephi is an open-source network analysis and visualization software that provide
 5. **Size**: Adjust node/edge sizes
 6. **Export**: Save visualization
 
+Let’s work on a sample graph in Gephi, les miserables with 77 nodes and 254 edges.
+
+gephi.png
+Title: Gephi panes. Three of them are colored in rectangles.
+
+See added node labels for the graph
+
+labels.png
+Title: Node labels added and font size is adjusted. See inside the blue rectangle. Notice the edges being curved. 
+
+You can color the nodes based on modularity classs (i.e. output of some clustering algorithms) that is computed under the statistics tab. 
+
+comm.png
+Title: Coloring the nodes based on communities.
+
+
 ## Interactive Visualizations
 
 ### Plotly
@@ -173,15 +175,6 @@ fig.add_trace(go.Scatter(
 fig.show()
 ```
 
-### D3.js
-
-D3.js is a JavaScript library for creating interactive visualizations.
-
-**Key Features**:
-- **Force Simulation**: Physics-based layouts
-- **Zoom and Pan**: Interactive navigation
-- **Tooltips**: Hover information
-- **Animations**: Smooth transitions
 
 ## Large Network Visualization
 
@@ -197,12 +190,6 @@ D3.js is a JavaScript library for creating interactive visualizations.
 2. **Clustering**: Group similar nodes
 3. **Level-of-Detail**: Show different detail levels
 4. **Filtering**: Remove less important elements
-
-### Techniques
-
-**Edge Bundling**: Groups similar edges together
-**Hierarchical Clustering**: Organizes nodes in clusters
-**Focus+Context**: Shows detail in focus area, overview elsewhere
 
 ## Community Visualization
 
@@ -292,9 +279,7 @@ plt.show()
 ```
 
 ## Best Practices
-
 ### Design Principles
-
 1. **Clarity**: Make the visualization easy to understand
 2. **Simplicity**: Avoid unnecessary visual elements
 3. **Consistency**: Use consistent color schemes and styles
@@ -313,32 +298,3 @@ plt.show()
 3. **Node Separation**: Ensure nodes don't overlap
 4. **Symmetry**: Use symmetric layouts when appropriate
 
-## Tools and Libraries
-
-### Python Libraries
-
-1. **NetworkX**: Basic graph visualization
-2. **Matplotlib**: Custom plotting
-3. **Plotly**: Interactive visualizations
-4. **Bokeh**: Web-based interactive plots
-5. **Pyvis**: Interactive network visualization
-
-### Standalone Software
-
-1. **Gephi**: Interactive network analysis
-2. **Cytoscape**: Biological network visualization
-3. **Pajek**: Large network analysis
-4. **Tulip**: Graph visualization framework
-
-### Web-based Tools
-
-1. **D3.js**: Custom interactive visualizations
-2. **Sigma.js**: Graph visualization library
-3. **Vis.js**: Network visualization
-4. **Gephi Web**: Web version of Gephi
-
-## References
-
-- Munzner, T. (2014). Visualization analysis and design. CRC press.
-- Heer, J., & Shneiderman, B. (2012). Interactive dynamics for visual analysis. Communications of the ACM, 55(4), 45-54.
-- Bastian, M., Heymann, S., & Jacomy, M. (2009). Gephi: an open source software for exploring and manipulating networks. ICWSM, 8(2009), 361-362. 
