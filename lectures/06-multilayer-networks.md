@@ -244,69 +244,211 @@ def layer_correlation(multilayer_network):
     return correlation_matrix
 ```
 
-## Challenges and Limitations
+## Actor Analysis
 
-### 1. Computational Complexity
+Degree standard deviation of an actor through layers is defined as  
 
-**Issues**:
-- Exponential growth with number of layers
-- Memory requirements for large networks
-- Algorithm scalability
+$\sigma_{k} = \sqrt{\frac{1}{L-1}\sum_{\alpha=1}^{L}(k_{\alpha}-\bar{k})^2}$
 
-**Solutions**:
-- Efficient data structures
-- Approximation algorithms
-- Parallel computing
+where $k_{\alpha}$ is the degree of the actor in layer $\alpha$, $\bar{k}$ is the average degree of the actor, and $L$ is the number of layers.
 
-### 2. Data Quality
+uunet Python package can be used to analyze multiplex networks. Detailed documentation and a tutorial can be found at [uunet](https://github.com/uuinfolab/py_multinet/tree/master)
 
-**Issues**:
-- Missing data across layers
-- Inconsistent node sets
-- Temporal alignment
 
-**Solutions**:
-- Data imputation techniques
-- Robust algorithms
-- Quality assessment metrics
+```{python}
+#install uunet
+import uunet.multinet as ml
+n = ml.read('tutorial/example1.txt')
+ml.plot(n, vertex_labels_bbox = {"boxstyle":'round4', "fc":'white'})
+```
 
-### 3. Interpretability
+Helper function defined to convert the output of the library to pandas dataframes.
 
-**Issues**:
-- Complex interactions between layers
-- Difficult to visualize
-- Hard to explain results
+```{python}
+import pandas as pd
+# transforms the typical output of the library (dictionaries) into pandas dataframes
+def df(d):
+  return pd.DataFrame.from_dict(d)
+``` 
+  
 
-**Solutions**:
-- Visualization tools
-- Feature importance analysis
-- Explainable AI techniques
+Use networkx objects as layers of the multiplex network
 
-## Future Directions
+```{python}
+import networkx as nx
+l1 = nx.read_edgelist("tutorial/example_igraph1.dat")
+l2 = nx.read_edgelist("tutorial/example_igraph2.dat")
+n = ml.empty()
+ml.add_nx_layer(n, l1, "layer1")
+ml.add_nx_layer(n, l2, "layer2")
+df( ml.edges(n) )
+```
 
-### 1. Dynamic Multilayer Networks
+The library provides a multiplex mixture growth model based on some evolution functions. It's limited to ER and PA models for now. A layer can grow internally or externally based on probabilities. If externally effected from other layers, dependency matrix can be used to define the dependency between layers.
 
-**Research Areas**:
-- Time-varying layer structure
-- Adaptive algorithms
-- Real-time analysis
+```{python}
+models_mix = [ ml.evolution_pa(3, 1), ml.evolution_er(100), ml.evolution_er(100) ]
+pr_internal = [1, .2, 1]
+pr_external = [0, .8, 0]
+dependency = [ [1, 0, 0], [0.5, 0, 0.5], [0, 0, 1] ]
+generated_mix = ml.grow(100, 150, models_mix, pr_internal, pr_external, dependency)
+l = ml.layout_multiforce(generated_mix, gravity = [.5])
+ver = ml.vertices(generated_mix)
+deg = [ml.degree(generated_mix, [a], [l])[0] for a,l in zip(ver['actor'], ver['layer'])]
+ml.plot(generated_mix, layout = l, vertex_labels=[], vertex_size=deg)
+```
 
-### 2. Machine Learning Integration
+It is also possible to read existing datasets in the library.
 
-**Research Areas**:
-- Deep learning for multilayer networks
-- Graph neural networks
-- Representation learning
+```{python}
+net = ml.data("aucs")
+ml.layers(net)
+```
 
-### 3. Scalability
+You can merge some layers into a single layer.
 
-**Research Areas**:
-- Efficient algorithms
-- Distributed computing
-- Approximation methods
+```{python}
+ml.flatten(net, "offline", ['work', 'leisure', 'lunch'] )
+ml.layers(net)
+```
+
+```{python}
+net = ml.data("aucs")
+l2 = ml.layout_multiforce(net, w_inter = [1], w_in = [1, 0, 0, 0, 0], gravity = [1, 0, 0, 0, 0])
+ml.plot(net, layout = l2, grid = [2, 3], vertex_labels = [])
+```
+
+Some summary network metrics can be obtained from the library. $n,m$ are number of nodes and edges, $nc$ is number of components, $slc$ is the size of larges component, $dens$ is the density, $cc$ is the average clustering coefficient, $apl$ is the average shortest path length, $dia$ is the diameter of the layer. 
+
+```{python}
+df( ml.summary(net) )
+```
+
+Other network statistics can be obtained converting multiplex object to networkx object.
+
+```{python}
+import networkx as nx
+layers = ml.to_nx_dict(net)
+nx.degree_assortativity_coefficient(layers["facebook"])
+```
+
+Layers can be compared in pairs based on difference/similarity of node/edge properties. The formulations are explained in the reference 3. 
+
+```{python}
+comp = df( ml.layer_comparison(net, method = "jeffrey.degree") )
+comp.columns = ml.layers(net)
+comp.index = ml.layers(net)
+comp
+```
+
+```{python}
+df( ml.layer_comparison(net, method = "jaccard.actors") )
+```
+
+```{python}
+df( ml.layer_comparison(net, method = "pearson.degree") )
+```
+
+```{python}
+df( ml.layer_comparison(net, method = "jaccard.edges") )
+```
+
+Degrees and degree deviations of actors can be obtained.
+
+```{python}
+ml.degree(net, actors=['U4'])
+```
+
+```{python}
+deg = ml.degree(net)
+act = ml.actors(net)
+list(act.values())[0]
+
+degrees = [ [deg[i], list(act.values())[0][i]] for i in range(len(deg)) ]
+degrees.sort(reverse = True)
+
+degrees[0:5]
+```
+
+```{python}
+top_actors = []
+for el in degrees[0:5]:
+      top_actors.append( el[1] )
+
+layer_deg = dict()
+layer_deg["actor"] = top_actors
+for layer in ml.layers(net):
+    layer_deg[layer] = ml.degree(net, actors = top_actors, layers = [layer] )
+
+df( layer_deg )
+```
+
+```{python}
+deg_dev = dict()
+deg_dev["actor"] = top_actors
+deg_dev["dd"] = ml.degree_deviation(net, actors = top_actors)
+
+df( deg_dev )
+```
+
+Neigborhood centralities can be calculated. See the difference from degrees. 
+
+```{python}
+ml.degree(net, actors = ["U4"], layers = ["work", "lunch"])
+ml.neighborhood(net, actors = ["U91"], layers = ["facebook", "leisure"])
+```
+
+Neigborhood centrality exclusive to the queried layers can be calculated.
+
+```{python}
+ml.xneighborhood(net, actors = ["U91"], layers = ["facebook", "leisure"])
+```
+
+
+Relevance is the ratio between neighborhood centrality of the queried layers and all layers. 
+
+```{python}
+layer_rel = dict()
+layer_rel["actor"] = top_actors
+for layer in ml.layers(net):
+    layer_rel[layer] = ml.relevance(net, actors = top_actors, layers = [layer] )
+
+df( layer_rel )
+```
+
+Multiplex networks are special cases of multilayer networks. Multilayer networks can be defined with different nodes at each layer. Pymnet libary can be used to visulaize and analyze multilayer networks. 
+
+```{python}
+#!git clone https://github.com/bolozna/Multilayer-networks-library.git
+#!pip install ./Multilayer-networks-library
+import pymnet as pn
+fig=pn.draw(pn.er(10,3*[0.4]),layout="spring", show=True)
+fig.savefig("net.pdf")
+```
+
+```{python}
+gml = pn.er(10,3*[0.4])
+#list(gml)
+#list(gml.edges)
+#list(gml.iter_layers())
+#list(gml.iter_node_layers())
+#list(gml[0,0])
+#gml[0,0].deg()
+#gml[0,0].str()
+#pn.degs(gml)
+#pn.density(gml)
+#pn.cc_barrat(gml,(0,0))
+#pn.multiplex_density(gml)
+#pn.supra_adjacency_matrix(gml)
+#help(pn.models)
+#help(pn.netio)
+```
+
 
 ## References
 
-- Kivelä, M., Arenas, A., Barthelemy, M., Gleeson, J. P., Moreno, Y., & Porter, M. A. (2014). Multilayer networks. Journal of Complex Networks, 2(3), 203-271.
-- Boccaletti, S., Bianconi, G., Criado, R., del Genio, C. I., Gómez-Gardeñes, J., Romance, M., ... & Zanin, M. (2014). The structure and dynamics of multilayer networks. Physics Reports, 544(1), 1-122.
-- De Domenico, M., Solé-Ribalta, A., Cozzo, E., Kivelä, M., Moreno, Y., Porter, M. A., ... & Arenas, A. (2013). Mathematical formulation of multilayer networks. Physical Review X, 3(4), 041022. 
+1: Bianconi, Ginestra. Multilayer Networks. Available from: VitalSource Bookshelf, Oxford University Press Academic UK, 2018.
+
+2: [uunet Python library](https://github.com/uuinfolab/py_multinet/tree/master)
+
+3: Bródka, Piotr, et al. "Quantifying layer similarity in multiplex networks: a systematic study." Royal Society open science 5.8 (2018): 171747.
