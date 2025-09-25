@@ -2,7 +2,11 @@
 
 ## Introduction
 
-Multilayer networks represent complex systems where entities can be connected through multiple types of relationships or interactions. These networks are essential for modeling real-world systems that cannot be adequately described by single-layer networks.
+First introduced under social science domain, multilayer networks represented different type of relationships of the same nodes. The representation is now generalized to allow different nodes at each layer, different relationships and connections between layers. Transportation networks, social networks, biological networks, and financial networks are examples of multilayer networks.
+
+multilayer.png
+Figure 1: APS Dataset, paper collaborations in different subjects. Courtesy of the
+reference 1.
 
 ## Basic Concepts
 
