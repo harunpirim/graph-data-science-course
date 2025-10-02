@@ -2,43 +2,54 @@
 
 ## Introduction
 
-Graph Machine Learning (GML) is a rapidly growing field that combines graph theory with machine learning techniques to analyze and learn from graph-structured data. This field has applications in social networks, biological networks, recommendation systems, and many other domains.
+# Machine Learning as Optimization: A Simple Summary
+
+Machine learning is fundamentally an **optimization problem** where we search for the best possible model to perform a specific task.
+
+1-6.png
+
+1-5.png
+
+## The Core Process
+
+**Goal**: Find a mathematical model that achieves optimal performance on a given task
+
+**Key Components**:
+
+1. **Performance Metric** (Loss Function/Cost Function)
+   - Quantifies how well the model is performing
+   - Lower loss = better performance
+
+2. **Data-Driven Learning**
+   - Algorithm receives data (often large amounts)
+   - Uses this data to make iterative improvements
+
+3. **The Learning Cycle** (Training):
+   ```
+   Make Decision/Prediction
+          ↓
+   Evaluate with Loss Function
+          ↓
+   Calculate Error
+          ↓
+   Update Model Parameters
+          ↓
+   (Repeat until performance is satisfactory)
+   ```
+
+**The Essence**: At each iteration, the model makes predictions, measures how wrong it is, and adjusts its internal parameters to do better next time. Through repeated cycles, the model progressively improves its performance.
+
+This iterative process of **learning from mistakes** is what we call **training** - it's how machines get "smarter" at their tasks over time.
+
+SL.jpg
+
++++
+
+Learning.jpg
 
 ## Graph Learning Tasks
 
-### 1. Node Classification
-
-**Definition**: Predicting the label of a node in a graph based on its features and the graph structure.
-
-**Applications**:
-- Social network analysis (predicting user interests)
-- Biological networks (predicting protein functions)
-- Citation networks (predicting paper categories)
-
-**Approach**: Node features + information from edges + information from the graph structure.
-
-### 2. Link Prediction
-
-**Definition**: Predicting the existence of an edge between two nodes.
-
-**Applications**:
-- Social network friend suggestions
-- Recommendation systems
-- Biological network inference
-
-**Methods**:
-- Heuristic methods (Common Neighbors, Jaccard Coefficient)
-- Embedding-based methods
-- Graph Neural Networks
-
-### 3. Graph Classification
-
-**Definition**: Predicting the label of an entire graph.
-
-**Applications**:
-- Molecular property prediction
-- Social network analysis
-- Document classification
+encode.jpg
 
 ## Node Representation Learning
 
@@ -235,6 +246,5 @@ $$\mathcal{L} = -\sum_{G \in \mathcal{G}} y_G \log(\hat{y}_G)$$
 ## References
 
 - Hamilton, W. L. (2020). Graph representation learning. Synthesis Lectures on Artificial Intelligence and Machine Learning, 14(3), 1-159.
-- Kipf, T. N., & Welling, M. (2017). Semi-supervised classification with graph convolutional networks. ICLR.
-- Veličković, P., et al. (2018). Graph attention networks. ICLR.
-- Zhou, J., et al. (2020). Graph neural networks: A review of methods and applications. AI Open, 1, 57-81. 
+- Stamile, Claudio, et al. Graph Machine Learning : Take Graph Data to the Next Level by Applying Machine Learning Techniques and Algorithms, Packt Publishing,
+- Keita Broadwater and Namid Stillman. Graph Neural Networks in Action. Manning Publications, 2025. ISBN: 9781617299056.
