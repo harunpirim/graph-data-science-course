@@ -1,14 +1,17 @@
 # Graph Machine Learning
+1-6.png
+Title: hypergraph
+Width: 50%
+
+1-5.png
+Title: knowledge graph
+Width: 50%
 
 ## Introduction
 
 # Machine Learning as Optimization: A Simple Summary
 
 Machine learning is fundamentally an **optimization problem** where we search for the best possible model to perform a specific task.
-
-1-6.png
-
-1-5.png
 
 ## The Core Process
 
@@ -50,6 +53,8 @@ Learning.jpg
 ## Graph Learning Tasks
 
 encode.jpg
+
+[Graph Machine Learning levels](https://claude.ai/public/artifacts/5c8f26be-d383-4c7a-8114-8df2d4a86864)
 
 ## Node Representation Learning
 
