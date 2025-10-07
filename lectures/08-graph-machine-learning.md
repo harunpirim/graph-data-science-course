@@ -56,6 +56,9 @@ encode.jpg
 
 [Graph Machine Learning levels](https://claude.ai/public/artifacts/5c8f26be-d383-4c7a-8114-8df2d4a86864)
 
+https://drek4537l1klr.cloudfront.net/broadwater/Figures/1-8.png
+
+
 ## Node Representation Learning
 
 ### DeepWalk Architecture
@@ -93,6 +96,8 @@ where $c$ is the context window size.
 **Random Walk Strategy**:
 - **BFS-like**: Explores local neighborhood (homophily)
 - **DFS-like**: Explores distant nodes (structural roles)
+
+node2vec_tutorial.md
 
 ## Graph Neural Networks (GNNs)
 
