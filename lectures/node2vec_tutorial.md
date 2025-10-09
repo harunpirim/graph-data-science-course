@@ -892,6 +892,3 @@ Use node2vec for link prediction on a dataset of your choice.
 ### Exercise 4: Comparison
 Compare node2vec with DeepWalk and graph factorization on the same task.
 
----
-
-**🎓 Congratulations!** You now understand the node2vec algorithm and how to apply it to real-world graph problems!

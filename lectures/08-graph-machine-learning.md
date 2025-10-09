@@ -56,10 +56,47 @@ encode.jpg
 
 [Graph Machine Learning levels](https://claude.ai/public/artifacts/5c8f26be-d383-4c7a-8114-8df2d4a86864)
 
-https://drek4537l1klr.cloudfront.net/broadwater/Figures/1-8.png
-
 
 ## Node Representation Learning
+
+nodeE.jpg
+
+$$\text{ENC} : \mathcal{V} \rightarrow \mathbb{R}^{d},$$
+
+
+decode.jpg
+
+$$\text{DEC} : \mathbb{R}^{d} \times \mathbb{R}^{d} \rightarrow \mathbb{R}^{+}.$$
+
+
+$$\text{DEC}(\text{ENC}(u), \text{ENC}(v)) = \text{DEC}(\mathbf{z}_u, \mathbf{z}_v) \approx \mathbf{S}[u, v].$$
+
+
+To achieve the reconstruction this objective, the standard practice is to minimize an empirical reconstruction loss Lover a set of training node pairs D:
+
+$$\mathcal{L} = \sum_{(u,v) \in \mathcal{D}} \ell\big(\text{DEC}(\mathbf{z}_u, \mathbf{z}_v), \mathbf{S}[u, v]\big),$$
+
+
+| **Method**         | **Decoder** | **Similarity measure** | **Loss function** |
+|--------------------|-------------|------------------------|-------------------|
+| Lap. Eigenmaps     | $\|\mathbf{z}_u - \mathbf{z}_v\|_2^2$ | general | $\text{DEC}(\mathbf{z}_u, \mathbf{z}_v) \cdot \mathbf{S}[u,v]$ |
+| Graph Fact.        | $\mathbf{z}_u^\top \mathbf{z}_v$ | $\mathbf{A}[u,v]$ | $\|\text{DEC}(\mathbf{z}_u, \mathbf{z}_v) - \mathbf{S}[u,v]\|_2^2$ |
+| GraRep             | $\mathbf{z}_u^\top \mathbf{z}_v$ | $\mathbf{A}[u,v], \ldots, \mathbf{A}^k[u,v]$ | $\|\text{DEC}(\mathbf{z}_u, \mathbf{z}_v) - \mathbf{S}[u,v]\|_2^2$ |
+| HOPE               | $\mathbf{z}_u^\top \mathbf{z}_v$ | general | $\|\text{DEC}(\mathbf{z}_u, \mathbf{z}_v) - \mathbf{S}[u,v]\|_2^2$ |
+| DeepWalk           | $\dfrac{e^{\mathbf{z}_u^\top \mathbf{z}_v}}{\sum_{k \in \mathcal{V}} e^{\mathbf{z}_u^\top \mathbf{z}_k}}$ | $p_{\mathcal{G}}(v|u)$ | $-\mathbf{S}[u,v]\log(\text{DEC}(\mathbf{z}_u, \mathbf{z}_v))$ |
+| node2vec           | $\dfrac{e^{\mathbf{z}_u^\top \mathbf{z}_v}}{\sum_{k \in \mathcal{V}} e^{\mathbf{z}_u^\top \mathbf{z}_k}}$ | $p_{\mathcal{G}}(v|u)$ (biased) | $-\mathbf{S}[u,v]\log(\text{DEC}(\mathbf{z}_u, \mathbf{z}_v))$ |
+
+
+Shallow embedding approaches face three major drawbacks:
+
+	1.	No Parameter Sharing:
+	Each node has its own independent embedding vector, leading to poor statistical efficiency and high computational cost. The number of parameters grows linearly with the number of nodes O(|V|), making the method unscalable for large graphs.
+	
+	2.	No Use of Node Features:
+	These methods ignore rich node attribute information that could improve the quality and generalizability of learned representations.
+	
+	3.	Transductive Limitation:
+	Shallow embeddings can only represent nodes seen during training. They cannot generalize to unseen nodes without retraining, preventing their use in inductive settings.
 
 ### DeepWalk Architecture
 
@@ -99,11 +136,47 @@ where $c$ is the context window size.
 
 node2vec_tutorial.md
 
+
+	The node embedding approaches we discussed used a shallow embedding approach to generate representations of nodes, where we simply optimized a unique embedding vector for each node.
+
+	  The key idea is that we want togenerate representations of nodes that actually depend on the structure of the graph, as well as any feature information we might have.
+
+
+$$f(\mathbf{PAP}^\top) = f(\mathbf{A})$$
+
+$$f(\mathbf{PAP}^\top) = \mathbf{P} f(\mathbf{A})$$
+
+The shallow encoders  are an example of permutation equivariant functions.) 
+
 ## Graph Neural Networks (GNNs)
+
+ Regardless of the motivation, the defining feature of a GNN is that it uses a form of neural message passing in which vector messages are exchanged between nodes and updated using neural networks [Gilmer et al., 2017].
+ 
+We will describe how we can take an input graph 
+$\mathcal{G} = (\mathcal{V}, \mathcal{E})$, along with a set of node features 
+$\mathbf{X} \in \mathbb{R}^{d \times |\mathcal{V}|}$, and use this information to generate node embeddings $\mathbf{z}_u, \ \forall u \in \mathcal{V}$. 
 
 ### Message Passing Framework
 
 **Core Idea**: Update node representations by aggregating information from neighbors.
+
+message.jpg
+
+$$\mathbf{h}_u^{(k+1)} = \text{UPDATE}^{(k)} \Big( 
+\mathbf{h}_u^{(k)}, 
+\text{AGGREGATE}^{(k)} \big( \{ \mathbf{h}_v^{(k)}, \forall v \in \mathcal{N}(u) \} \big) 
+\Big)$$
+
+$$= \text{UPDATE}^{(k)} \Big( 
+\mathbf{h}_u^{(k)}, 
+\mathbf{m}_{\mathcal{N}(u)}^{(k)} 
+\Big),$$
+
+where $\text{UPDATE}$ and $\text{AGGREGATE}$ are arbitrary differentiable functions (i.e., neural networks), and $\mathbf{m}_{\mathcal{N}(u)}$ is the “message” that is 
+aggregated from $u$’s graph neighborhood $\mathcal{N}(u)$. 
+We use superscripts to distinguish the embeddings and functions at different iterations of message passing.\footnote{For example, $\mathbf{h}_u^{(k)}$ and 
+$\text{UPDATE}^{(k)}$ refer to the embedding and update function at the $k$-th iteration.}
+
 
 **Mathematical Formulation**:
 $$h_v^{(l+1)} = \sigma(W^{(l)} \cdot \text{AGGREGATE}^{(l)}(\{h_u^{(l)} : u \in \mathcal{N}(v)\}))$$
