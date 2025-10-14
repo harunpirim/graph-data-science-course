@@ -136,6 +136,8 @@ where $c$ is the context window size.
 
 node2vec_tutorial.md
 
+ [illustration here](https://claude.ai/public/artifacts/38bca534-40f2-4b6c-abca-ec283ded304a)
+
 
 	The node embedding approaches we discussed used a shallow embedding approach to generate representations of nodes, where we simply optimized a unique embedding vector for each node.
 
@@ -176,6 +178,8 @@ where $\text{UPDATE}$ and $\text{AGGREGATE}$ are arbitrary differentiable functi
 aggregated from $u$’s graph neighborhood $\mathcal{N}(u)$. 
 We use superscripts to distinguish the embeddings and functions at different iterations of message passing.\footnote{For example, $\mathbf{h}_u^{(k)}$ and 
 $\text{UPDATE}^{(k)}$ refer to the embedding and update function at the $k$-th iteration.}
+
+
 
 
 **Mathematical Formulation**:
