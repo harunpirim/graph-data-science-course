@@ -210,12 +210,51 @@ for epoch in range(3000):
 
 
 
+# Distance and similarity concepts for graphs
+ 
+ - k-hop
+ - probability of visiting a node in k-hobs 
+ - many more...
+
+> Inductive methods excel in generalizing to accommodate new, unseen data, enabling models to adapt and learn beyond their initial training set. Conversely, transductive methods specialize in optimizing embeddings specifically for the training data itself, making them highly effective within their learned context but less flexible when introduced to new data.
 
 
+> Transductive wouldn’t be better in spam detection because models would require retraining with every new batch of emails, making them computationally expensive and impractical for real-time spam detection.
 
 
+> Inductive models wouldn’t take full advantage of the specific network structure and node interconnections because they only process part of the data—the training set. This isn’t enough information for accurate community detection.
 
 
+| Representation | Description | Examples |
+|----------------|--------------|-----------|
+| **Basic data representations** | • Great for analytical methods that involve network traversal  <br> • Useful for some node classification algorithms  <br> • Information provided: Node and edge neighbors | • Adjacency list  <br> • Edge list  <br> • Adjacency matrix |
+| **Transductive (shallow) embeddings** | • Useless for data not trained on  <br> • Difficult to scale | • DeepWalk  <br> • N2V  <br> • TransE  <br> • RESCAL  <br> • Graph factorization  <br> • Spectral techniques |
+| **Inductive embeddings** | • Models can be generalized to new and structurally different graphs  <br> • Represents data as vectors in continuous space  <br> • Learns a mapping from data (new and old) to positions within the continuous space | • GNNs can be used to inductively generate embeddings  <br> • Transformers  <br> • N2V with feature concatenation |
+
+gnn_mlp.jpg
+
+> Each step in the message-passing layer of our GNNs, we’ll be passing information from nodes to another node one hop away. Importantly, a neural network then takes the data from the one-hop neighbors and applies a nonlinear transformation. This is the beauty of GNNs; we’re applying many small neural networks at the level of individual nodes and/or edges to build embeddings of the graph features.
+
+## Message Passing Layer in GNN
+
+
+At each step, node $\(v\)$ updates its embedding by aggregating information from one-hop neighbors $\(\mathcal{N}(v)\)$:
+
+$$\mathbf{h}_v^{(k)} = 
+\text{UPDATE}^{(k)} \left( 
+    \mathbf{h}_v^{(k-1)}, 
+    \text{AGGREGATE}^{(k)} \left( 
+        \{ \mathbf{h}_u^{(k-1)} : u \in \mathcal{N}(v) \} 
+    \right) 
+\right)$$
+
+A simple instantiation:
+
+$$\mathbf{h}_v^{(k)} = \sigma \left( 
+    \mathbf{W}_1 \mathbf{h}_v^{(k-1)} +
+    \sum_{u \in \mathcal{N}(v)} 
+    \mathbf{W}_2 \mathbf{h}_u^{(k-1)} 
+\right)$$
 
 
 
