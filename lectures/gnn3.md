@@ -216,6 +216,8 @@ Usually, GNNs with just 2 or 3 layers are pretty good at lots of things, like fi
 
 ## Under the hood
 
+### GCN
+
 $$\[
 \text{Transform}(u) = \sigma \big( W_a * \text{Aggregate}(u) \big)
 \]$$
@@ -259,13 +261,128 @@ h_u^{(k)} =
 | • Must be undirected  <br> • Operation dependent on node features  <br> • Generally less computationally efficient | • Not required to be undirected  <br> • Operation not dependent on node features  <br> • Generally more computationally efficient |
 
 
+### GraphSAGE
+
+> The messages that are considered are now only a subset of all messages.
+
+$$\[
+h^{(k)} = \sigma \left( W^{(k)} \cdot 
+\text{Aggregate}\big(h^{(k-1)}, \{ h^{(k-1)}_u, \forall u \in S \}\big) \right)
+\]$$
+
+```
+Algorithm MESSAGE_PASSING_GNN
+Inputs:
+    G = (V, E)                  # graph with nodes V and edges E
+    {x_v | v ∈ V}              # input feature vector for each node v
+    K                           # number of layers (message-passing depth)
+    {W^k | k = 1..K}            # learnable weight matrices
+    σ(·)                        # nonlinearity (e.g., ReLU)
+    {AGGREGATE_k(·) | k = 1..K} # neighbor aggregation functions (e.g., mean/sum/max/attn)
+
+Output:
+    {z_v | v ∈ V}               # final node representations
+
+Procedure:
+1. # Initialize node states
+   for each v ∈ V do
+       h_v^0 ← x_v
+   endfor
+
+2. # Iterative message passing
+   for k = 1 to K do
+       # (optional) pre-allocate to avoid in-place conflicts
+       for each v ∈ V do
+           # Collect neighbor states from previous layer
+           N(v) ← { u | (u, v) ∈ E }       # neighbors of v
+           M_v^k ← AGGREGATE_k( { h_u^(k-1) | u ∈ N(v) } )
+
+           # Update: combine self + aggregated neighbors
+           a_v^k ← CONCAT( h_v^(k-1), M_v^k )
+           h̃_v^k ← W^k · a_v^k
+           h_v^k ← σ( h̃_v^k )
+       endfor
+
+       # (optional) stabilize scales
+       for each v ∈ V do
+           h_v^k ← NORMALIZE( h_v^k )      # e.g., layer/batch norm or L2
+       endfor
+   endfor
+
+3. # Readout (per-node embeddings)
+   for each v ∈ V do
+       z_v ← h_v^K
+   endfor
+
+Return { z_v | v ∈ V }
+```
+
+
+```
+Algorithm: MessagePassingGNN_With_Sampling
+Inputs:
+    G = (V, E)
+    x_v for each v ∈ V
+    K                      # number of layers
+    S                      # number of neighbors to sample
+    W[1..K]                # separate weight matrix per layer
+    σ(·)                   # nonlinearity
+    AGGREGATE_k(·)         # aggregation function per layer
+
+------------------------------------------------------------
+
+for each node v in V do
+    h_v[0] ← x_v
+end for
+
+for k = 1 to K do
+    for each node v in V do
+        N(v) ← { u | (u, v) ∈ E }
+        N_hat(v) ← SAMPLE(N(v), S)
+        m_v ← AGGREGATE_k( { h_u[k-1] | u ∈ N_hat(v) } )
+        a_v ← CONCAT( h_v[k-1], m_v )
+        h̃_v ← W[k] · a_v               # each layer has its own W[k]
+        h_v[k] ← σ( h̃_v )
+    end for
+end for
+
+for each node v in V do
+    z_v ← h_v[K]
+end for
+
+return { z_v | v ∈ V }
+```
+
+
+$$\mathbf{h}_i^{(k)} =
+\mathbf{W}_1^{(k)} \mathbf{h}_i^{(k-1)} +
+\mathbf{W}2^{(k)} \cdot
+\text{mean}_{j \in \mathcal{N}(i)} \mathbf{h}_j^{(k-1)}$$
+
+
+$$\mathbf{h}_i^{(k)} =
+\sigma \!\left(
+\mathbf{W}_1^{(k)} \mathbf{h}_i^{(k-1)} +
+\mathbf{W}2^{(k)} \cdot
+\frac{1}{|\mathcal{N}(i)|}
+\sum_{j \in \mathcal{N}(i)} \mathbf{h}_j^{(k-1)}
+\right)$$
+
+# Graph attention networks
+
+These GNNs, like the ones we talked about in the last chapter, use convolution, but they take it a step further by adding an attention mechanism. This helps them focus on the most important nodes as they learn.
+
+Unlike the usual convolutional GNN, which treats all nodes the same, the attention mechanism lets the GAT focus on the most important parts of its training.
+
+
+
 ## Reference
 
 Graph Neural Networks in Action, K. Broadwater, 2025
 
 
 ---
-Annotations: 0,10570 SHA-256 42348ff7a151fd90be904f2b93daf6b3  
-&Writing Tools: 21,8 55,66 142,6 165,55 235,8 253,15 270 275,24 325 331,16 367,29 404,5 417 438,56 521,4 554,12 818,3 827 832,18 868,13 888 905,47 990,2 1011,8 1038,138 1185,3 1195,7 1214,4 1227,5 1244,3 1255,3 1288,57 1358 1364 1374,3 1409,39 1476,9 1519 1524,32 1582,31 1654,7 1681,96 1805,12 1844,10 1890,7 1929,32 1989 2017,4 2034,4 2054,5 2103,7 2116,4 2146,15 2175 2698,23 2762,5 2782,7 2802,7 2818,7 2829,2 2835,26 2868,3 2882,12 2921,43 2986,6 3008,5 3042,33 3098,11 3635 3638,12 3672,3 3691 3696,109 3810 3815,7 3824 3827,215 4071,28 4116,20 4193 4571,30 4642,31 4683 4797 4806,18 4856,5 4870,19 4907,3 4940,2 4984,83 5087,61 5194,10 5212,7 5259,31 5297,3 5307,21 5330,52 5401,5 5419,3 5425 5428,2 5445,7 5473,7 5486,4 5498,32 5545,4 5580,54 5668,4 5684,4 5725,2 6256,17 6277 6280 6284 6291 6295 6310,76 6401,6 6416,5 6433,6 6678,105 6793 6798,7 6827,71 6901 6904,38 6944,39 6998,2 9006,3 9025,5 9044,90 9143,3 9150 9154,11 9453,3 9467,3 9482,103  
-@harun <HP>: 323,2 566,187 778,40 1035,3 1285,3 1345 1511,3 1777,14 2176,5 2671,27 2871 3109,6 3629,6 4194,6 4334,11 4416,11 4540,31 4798 4950,2 5069,2 5165,2 5183,10 5328,2 5561,2 5727,5 6225,31 6439,6 6646,19 6942,2 7050,2 7142,7 8120,11 8831,24 8963,2 8980,2 9004,2 9172,23 9234 9267,6 9341,6 9418,4 9585,3 9698,6 9876,7 10041,5 10499,71  
+Annotations: 0,13814 SHA-256 ff6f0b0a7c6ed968977f  
+&Writing Tools: 21,8 55,66 142,6 165,55 235,8 253,15 270 275,24 325 331,16 367,29 404,5 417 438,56 521,4 554,12 818,3 827 832,18 868,13 888 905,47 990,2 1011,8 1038,138 1185,3 1195,7 1214,4 1227,5 1244,3 1255,3 1288,57 1358 1364 1374,3 1409,39 1476,9 1519 1524,32 1582,31 1654,7 1681,96 1805,12 1844,10 1890,7 1929,32 1989 2017,4 2034,4 2054,5 2103,7 2116,4 2146,15 2175 2698,23 2762,5 2782,7 2802,7 2818,7 2829,2 2835,26 2868,3 2882,12 2921,43 2986,6 3008,5 3042,33 3098,11 3635 3638,12 3672,3 3691 3696,109 3810 3815,7 3824 3827,215 4071,28 4116,20 4193 4571,30 4642,31 4683 4797 4806,18 4856,5 4870,19 4907,3 4940,2 4984,83 5087,61 5194,10 5212,7 5259,31 5297,3 5307,21 5330,52 5401,5 5419,3 5425 5428,2 5445,7 5473,7 5486,4 5498,32 5545,4 5580,54 5668,4 5684,4 5725,2 6256,17 6277 6280 6284 6291 6295 6310,76 6401,6 6416,5 6433,6 6678,105 6793 6798,7 6827,71 6901 6904,38 6944,39 6998,2 9006,3 9025,5 9044,90 9143,3 9150 9154,11 9462,3 9476,3 9491,103 13374 13384,168 13570,2 13576 13583,2 13586,14 13628,4 13645,8 13679,3 13692,31 13726,2 13742  
+@harun <HP>: 323,2 566,187 778,40 1035,3 1285,3 1345 1511,3 1777,14 2176,5 2671,27 2871 3109,6 3629,6 4194,6 4334,11 4416,11 4540,31 4798 4950,2 5069,2 5165,2 5183,10 5328,2 5561,2 5727,5 6225,31 6439,6 6646,19 6942,2 7050,2 7142,7 8120,11 8831,24 8963,2 8980,2 9004,2 9172,32 9243 9276,6 9350,6 9427,4 9594,3 9707,6 9885,7 10050,5 10508,21 10599,4 10727,8 12118,11 12998,9 13105 13149,7 13290 13342,32 13585 13743,71  
 ...
